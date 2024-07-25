@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:snp_job/entrance.dart';
-import 'package:snp_job/home.dart';
 import 'color_scheme.dart';
 
 void main() {
