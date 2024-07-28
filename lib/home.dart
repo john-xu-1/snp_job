@@ -34,7 +34,7 @@ class _HomeState extends State<Home> {
             icon: const Icon(Icons.login)
           ),
         ],
-        elevation: 10,
+        elevation: 21,
       ),
       body: Center(
          child: Container(
