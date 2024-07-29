@@ -3,7 +3,24 @@ import 'color_scheme.dart';
 import 'sheetshelper.dart';
 import 'home.dart';
 
-const List<String> accommodations = <String>['accm1', 'accm2', 'accm3', 'accm4'];
+const List<String> accommodations = <String>["Sense of workplace community",
+    "Programs specifically designed for people on the spectrum",
+    "Mental health support program",
+    "Remote work available",
+    "Sensory room",
+    "Adjustable lighting",
+    "Adapted hiring process",
+    "Job coaches",
+    "Extra time",
+    "Closed captioning/interpreter",
+    "ADA accessible building",
+    "Flexible scheduling",
+    "Multiple means of communication",
+    "Schedule of objectives for the day - less hidden curriculum",
+    "Egalitarian workplace",
+    "Generous PTO",
+    "Healthcare plan",
+    "Flexible interview options"];
 
 class Survey extends StatefulWidget {
   const Survey({Key? key, required this.email}) : super(key: key);
@@ -34,7 +51,7 @@ class _SurveyState extends State<Survey> {
   }
   
 
-  String dropdownValue = "accm1";
+  String dropdownValue = "Sense of workplace community";
   String fullAccommodations = "";
 
   @override

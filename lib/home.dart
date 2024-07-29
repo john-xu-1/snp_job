@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'color_scheme.dart';
 import 'signup.dart';
 import 'login.dart';
+import 'chat.dart';
 
 
 class Home extends StatefulWidget {
@@ -112,7 +113,7 @@ class _HomeState extends State<Home> {
                     image: DecorationImage(
                       fit: BoxFit.cover,
                       //alignment: FractionalOffset.topCenter,
-                      image: ExactAssetImage ("assets/neurobgnot.png")
+                      image: ExactAssetImage ("assets/work.png")
                     )
                   ),
                   child: const Center(
@@ -157,7 +158,7 @@ class _HomeState extends State<Home> {
                 ),
                 Container(
                   padding: const EdgeInsets.all(12.0),
-                  color: const Color.fromARGB(103, 255, 241, 115),
+                  color: MyColors.mySurface,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -404,7 +405,22 @@ class _HomeState extends State<Home> {
 
           ),
         
-        )
+        ),
+      ),
+      floatingActionButton: 
+      IconButton
+      (
+        onPressed: (){
+          Navigator.push(
+            context, 
+            MaterialPageRoute
+            (
+              builder: (context) => Chat()
+            )
+          );
+        },
+        icon: const Icon(Icons.chat),
+
       ),
        // This trailing comma makes auto-formatting nicer for build methods.
     );

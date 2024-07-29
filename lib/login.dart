@@ -8,7 +8,6 @@ import 'home.dart';
 class LogIn extends StatefulWidget {
   const LogIn({Key? key}) : super(key: key);
 
-  
   @override
   State<LogIn> createState() => _LogInState();
 }
@@ -29,7 +28,6 @@ class _LogInState extends State<LogIn> {
         setState(() {
           incorrect = true;
         });
-
       }
       else{
         if (user[1] == password)
@@ -47,8 +45,6 @@ class _LogInState extends State<LogIn> {
               )
             );
           }
-          
-
         }
         else{
           setState(() {
