@@ -37,7 +37,7 @@ class _EntranceState extends State<Entrance> {
               context, 
               MaterialPageRoute
               (
-                builder: (context) => const Home()
+                builder: (context) => const Home(loggedInEmail: "",)
               )
             );
           }

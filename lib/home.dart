@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'color_scheme.dart';
+import 'signup.dart';
+import 'login.dart';
 
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  const Home({super.key, required this.loggedInEmail});
+
+  final String loggedInEmail;
 
 
   @override
   State<Home> createState() => _HomeState();
 }
+bool hoverSignup = false;
+bool hoverLogin = false;
 
 class _HomeState extends State<Home> {
 
@@ -16,6 +22,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 222, 222, 222),
@@ -26,13 +33,70 @@ class _HomeState extends State<Home> {
           ],
         ),
         actions:[
-          IconButton(
-            onPressed: (){
-              setState(() {
-              });
-            }, 
-            icon: const Icon(Icons.login)
-          ),
+          if (widget.loggedInEmail == "") 
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Row(
+                children: [
+                  Container(
+                    width: 80,
+                    padding: const EdgeInsets.all(5.0),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: MyColors.myOnPrimary),
+                      color: hoverLogin ? MyColors.myOnBackgroundD: const Color.fromARGB(0, 255, 255, 255)
+                    ),
+                    child: TextButton(
+                      onHover: (bool value){
+                        setState(() {
+                          hoverLogin = value;
+                        });
+                      },
+                      onPressed: () {  
+                        Navigator.push(
+                          context, 
+                          MaterialPageRoute
+                          (
+                            builder: (context) => const LogIn()
+                          )
+                        );
+                      },
+                      child: const Text("Log in", style: TextStyle(color: MyColors.myOnSurface),),
+                    ),
+                  ),
+                  const SizedBox(width: 10,),
+                  Container(
+                    width: 80,
+                    padding: const EdgeInsets.all(5.0),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: MyColors.myOnPrimary),
+                      color: hoverSignup ? MyColors.myOnBackgroundD: const Color.fromARGB(0, 255, 255, 255)
+                    ),
+                    child: TextButton(
+                      onHover: (bool value){
+                        setState(() {
+                          hoverSignup = value;
+                        });
+                      },
+                      onPressed: () { 
+                        print ('right button') ;
+                        Navigator.push(
+                          context, 
+                          MaterialPageRoute
+                          (
+                            builder: (context) => const SignUp()
+                          )
+                        );
+                      },
+                      child: const Text("Sign up", style: TextStyle(color: MyColors.myOnSurface),),
+                    ),
+                  )
+                ],
+              ),
+            )
+          else const Padding(
+            padding: EdgeInsets.only(right: 20),
+            child: Icon(Icons.person),
+          )
         ],
         elevation: 21,
       ),
@@ -58,18 +122,6 @@ class _HomeState extends State<Home> {
                       ),
                   )
                 ),
-                // AspectRatio(
-                //   aspectRatio: 1.5,
-                //   child: Container(
-                //     decoration: const BoxDecoration(
-                //       image: DecorationImage(
-                //         fit: BoxFit.fitWidth,
-                //         alignment: FractionalOffset.topCenter,
-                //         image: ExactAssetImage ("assets/neurobgnot.png")
-                //       )
-                //     ),
-                //   ),
-                // ),
                 Container(
                   padding: const EdgeInsets.all(12.0),
                   color: MyColors.myOnBackground,

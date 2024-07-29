@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:snp_job/signup.dart';
+//import 'package:snp_job/signup.dart';
+import 'home.dart';
 import 'color_scheme.dart';
+import 'entrance.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData.from(colorScheme: const MyColors()),
-      home: const SignUp()
+      home: const Entrance()//const Home(loggedInEmail: "",)
     );
   }
 }

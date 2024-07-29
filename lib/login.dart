@@ -1,78 +1,53 @@
 import 'package:flutter/material.dart';
 import 'color_scheme.dart';
 import 'sheetshelper.dart';
-import 'survey.dart';
-import 'login.dart';
+import 'home.dart';
+
  
 
-class SignUp extends StatefulWidget {
-  const SignUp({Key? key}) : super(key: key);
+class LogIn extends StatefulWidget {
+  const LogIn({Key? key}) : super(key: key);
 
   
   @override
-  State<SignUp> createState() => _SignUpState();
+  State<LogIn> createState() => _LogInState();
 }
 
 
+class _LogInState extends State<LogIn> {
 
-
-class _SignUpState extends State<SignUp> {
-
-  String username= "";
-  String email = "";
+  String email= "";
   String password = "";
-
   bool incorrect = false;
 
   Future<void> _submitSection() async {
     try {
 
       final sheet = await SheetsHelper.sheetSetup("Sheet1"); 
-      final submission = [username, password]; 
       final user = await sheet!.values.rowByKey(email);
       if (user == null){
-        if (email.contains("@") && email.contains(".com")){
-          
-          await sheet.values.insertRowByKey (email, submission);
+        setState(() {
+          incorrect = true;
+        });
 
-           setState(() {
-            incorrect = false;
-           });
-
-          if (context.mounted){
-            Navigator.push(
-              context, 
-              MaterialPageRoute
-              (
-                builder: (context) => Survey(email: email,)
-              )
-            );
-          }
-          
-        }
-        else{
-          setState(() {
-            incorrect = true;
-          });
-        }
       }
       else{
-        
-        if (user[0] == username && user[1] == password){
-
+        if (user[1] == password)
+        {
           setState(() {
             incorrect = false;
-           });
-           
+          });
+          
           if (context.mounted){
             Navigator.push(
               context, 
               MaterialPageRoute
               (
-                builder: (context) => const LogIn()
+                builder: (context) => Home(loggedInEmail: email,)
               )
             );
           }
+          
 
         }
         else{
@@ -94,6 +69,9 @@ class _SignUpState extends State<SignUp> {
   void initState() {
     super.initState();
   }
+  
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +79,7 @@ class _SignUpState extends State<SignUp> {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Sign Up for",),
+        title: const Text("Log In",),
         elevation: 15,
       ),
       body: Center(
@@ -111,29 +89,6 @@ class _SignUpState extends State<SignUp> {
             SizedBox(
               height: height / 4.5,
               //color: Colors.red[300],
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const Text("Username",textScaleFactor: 1.5,),
-                    SizedBox(
-                      width: width /3,
-                      child: TextField(
-                        onChanged: (String value) {
-                          setState(() {
-                            username = value;
-                          });
-                        },
-                        cursorColor: MyColors.myOnSurface,
-                      ),
-                    ),
-                    
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              height: height / 4.5,
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
