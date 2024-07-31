@@ -23,6 +23,7 @@ class _SignUpState extends State<SignUp> {
   String password = "";
 
   bool incorrect = false;
+  bool loading = false;
 
   Future<void> _submitSection() async {
     try {
@@ -37,6 +38,7 @@ class _SignUpState extends State<SignUp> {
 
            setState(() {
             incorrect = false;
+            
            });
 
           if (context.mounted){
@@ -99,6 +101,15 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    if (loading){
+      return const Scaffold
+      (
+        body: Center
+        (
+          child: Text("Loading... (Takes ~5s)", style: TextStyle(fontSize: 50),)
+        )
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text("Sign Up for",),
@@ -124,6 +135,9 @@ class _SignUpState extends State<SignUp> {
                             username = value;
                           });
                         },
+                        decoration: const InputDecoration(
+                          hintText: "Anything works!"
+                        ),
                         cursorColor: MyColors.myOnSurface,
                       ),
                     ),
@@ -147,6 +161,9 @@ class _SignUpState extends State<SignUp> {
                             email = value;
                           });
                         },
+                        decoration: const InputDecoration(
+                          hintText: "Doesn't have to be a real email, we're just testing!"
+                        ),
                         cursorColor: MyColors.myOnSurface,
                       ),
                     ),
@@ -171,6 +188,9 @@ class _SignUpState extends State<SignUp> {
                             password = value;
                           });
                         },
+                        decoration: const InputDecoration(
+                          hintText: "Any password is fine, doesn't need to be email password"
+                        ),
                         cursorColor: MyColors.myOnSurface,
                       ),
                     ),
@@ -179,7 +199,14 @@ class _SignUpState extends State<SignUp> {
               ),
             ),
             ElevatedButton(
-              onPressed: () => _submitSection(),
+              onPressed: () {
+                setState(() {
+                  loading = true;
+                });
+                _submitSection();
+
+
+              },
               child: const Icon(Icons.send),
             )
           ],

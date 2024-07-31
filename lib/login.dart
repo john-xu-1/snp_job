@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'color_scheme.dart';
 import 'sheetshelper.dart';
@@ -18,6 +20,9 @@ class _LogInState extends State<LogIn> {
   String email= "";
   String password = "";
   bool incorrect = false;
+  String accommodations = "";
+
+  bool loading = false;
 
   Future<void> _submitSection() async {
     try {
@@ -30,27 +35,43 @@ class _LogInState extends State<LogIn> {
         });
       }
       else{
-        if (user[1] == password)
+        setState(() {
+          incorrect = false;
+        });
+        if (user.length < 3)
         {
-          setState(() {
-            incorrect = false;
-          });
-          
           if (context.mounted){
             Navigator.push(
               context, 
               MaterialPageRoute
               (
-                builder: (context) => Home(loggedInEmail: email,)
+                builder: (context) => Home(loggedInEmail: email, accommodations: accommodations,)
               )
             );
           }
         }
         else{
-          setState(() {
-            incorrect = true;
-          });
+          if (user[1] == password)
+          {
+            accommodations = user[2];
+            
+            if (context.mounted){
+              Navigator.push(
+                context, 
+                MaterialPageRoute
+                (
+                  builder: (context) => Home(loggedInEmail: email, accommodations: accommodations,)
+                )
+              );
+            }
+          }
+          else{
+            setState(() {
+              incorrect = true;
+            });
+          }
         }
+        
       }
 
       
@@ -66,13 +87,19 @@ class _LogInState extends State<LogIn> {
     super.initState();
   }
   
-
-  
-
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    if (loading && !incorrect){
+      return const Scaffold
+      (
+        body: Center
+        (
+          child: Text("Loading... (Takes ~5s)", style: TextStyle(fontSize: 50),)
+        )
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text("Log In",),
@@ -130,7 +157,12 @@ class _LogInState extends State<LogIn> {
               ),
             ),
             ElevatedButton(
-              onPressed: () => _submitSection(),
+              onPressed: () {
+                setState(() {
+                  loading = true;
+                });
+                _submitSection();
+              },
               child: const Icon(Icons.send),
             )
           ],

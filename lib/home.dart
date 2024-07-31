@@ -3,12 +3,14 @@ import 'color_scheme.dart';
 import 'signup.dart';
 import 'login.dart';
 import 'chat.dart';
+import 'jobmatches.dart';
 
 
 class Home extends StatefulWidget {
-  const Home({super.key, required this.loggedInEmail});
+  const Home({super.key, required this.loggedInEmail, required this.accommodations});
 
   final String loggedInEmail;
+  final String accommodations;
 
 
   @override
@@ -27,12 +29,24 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 222, 222, 222),
-        leading: const Icon(Icons.menu),
-        title: const Row(
-          children: [
-            Text("Neuro"),
-          ],
+        leading: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Container (
+            //height: height / 3,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.contain,
+                //alignment: FractionalOffset.topCenter,
+                image: ExactAssetImage ("assets/infinitylogo.png")
+              )
+            ),
+          ),
         ),
+        // title: Row(
+        //   children: [
+            
+        //   ],
+        // ),
         actions:[
           if (widget.loggedInEmail == "") 
             Padding(
@@ -116,18 +130,41 @@ class _HomeState extends State<Home> {
                       image: ExactAssetImage ("assets/work.png")
                     )
                   ),
-                  child: const Center(
-                    child: Text(
-                      "Project Name",
-                      style: TextStyle(fontSize: 75),
-                      ),
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                        "Neu-Link",
+                        style: TextStyle(fontSize: 75),
+                        ),
+                        TextButton(
+                          onPressed: ()
+                          {
+                            Navigator.push(
+                              context, 
+                              MaterialPageRoute
+                              (
+                                builder: (context) {
+                                  if (widget.loggedInEmail == "") return SignUp();
+                                  return JobMatches(email: widget.loggedInEmail, accommodations: widget.accommodations, firsTime: false,);
+                                }
+                              )
+                            );
+                          }, 
+                          child: widget.loggedInEmail == "" ? 
+                          Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), border: Border.all(width: 5, color: MyColors.myOnPrimary), ), child: const Padding(padding: EdgeInsets.all(7.5), child: Text("Start Finding", style: TextStyle(fontSize: 20)))) : 
+                          Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), border: Border.all(width: 5, color: MyColors.myOnPrimary), ), child: const Padding(padding: EdgeInsets.all(7.5), child: Text("Check My Match", style: TextStyle(fontSize: 20))))
+                        )
+                      ]
+                    ),
                   )
                 ),
                 Container(
                   padding: const EdgeInsets.all(12.0),
                   color: MyColors.myOnBackground,
                   child: Row(
-                    //mainAxisAlignment: MainAxisAlignment.center,
+                    //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(
@@ -152,7 +189,25 @@ class _HomeState extends State<Home> {
                           ],
                         ),
                       ),
-                      const Icon (Icons.abc)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          SizedBox(width: width/6.5,),
+                          SizedBox(
+                            height: 300,
+                            width: 300,
+                            child: Container (
+                              decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                  fit: BoxFit.contain,
+                                  image: ExactAssetImage ("assets/bigLogo.png")
+                                )
+                              ),
+                            ),
+                          ),
+                          
+                        ]
+                      ),
                     ],
                   )
                 ),
@@ -191,226 +246,15 @@ class _HomeState extends State<Home> {
                     ],
                   )
                 ),
-                Container(
-                  decoration: ShapeDecoration(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(60.0),
-                    ),
-                    //color: Color.fromARGB(20, 62, 62, 62)
-                    color: MyColors.myOnBackground
-                  ),
-                  //color: Colors.grey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      IconButton(
-                        iconSize: 100,
-                        onPressed: (){
-                          // Navigator.push(
-                          //   context, 
-                          //   MaterialPageRoute
-                          //   (
-                          //     builder: (context) => const TeamDisplayChoice(),
-                          //   )
-                          // );
-                        },  
-                        icon: const Icon(Icons.data_array),
-                        color: Colors.black,
-                      ),
-                      const Text(""),
-                    ],
-                  )
-                ),
-                Container(
-                  decoration: ShapeDecoration(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(60.0),
-                    ),
-                    //color: Color.fromARGB(20, 62, 62, 62)
-                    color: MyColors.myOnBackground
-                  ),
-                  //color: Colors.grey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      IconButton(
-                        iconSize: 100,
-                        onPressed: (){
-                          // Navigator.push(
-                          //   context, 
-                          //   MaterialPageRoute
-                          //   (
-                          //     builder: (context) => const TeamDisplayChoice(),
-                          //   )
-                          // );
-                        },  
-                        icon: const Icon(Icons.data_array),
-                        color: Colors.black,
-                      ),
-                      const Text(""),
-                    ],
-                  )
-                ),
-                Container(
-                  decoration: ShapeDecoration(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(60.0),
-                    ),
-                    //color: Color.fromARGB(20, 62, 62, 62)
-                    color: MyColors.myOnBackground
-                  ),
-                  //color: Colors.grey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      IconButton(
-                        iconSize: 100,
-                        onPressed: (){
-                          // Navigator.push(
-                          //   context, 
-                          //   MaterialPageRoute
-                          //   (
-                          //     builder: (context) => const TeamDisplayChoice(),
-                          //   )
-                          // );
-                        },  
-                        icon: const Icon(Icons.data_array),
-                        color: Colors.black,
-                      ),
-                      const Text(""),
-                    ],
-                  )
-                ),
-                Container(
-                  decoration: ShapeDecoration(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(60.0),
-                    ),
-                    //color: Color.fromARGB(20, 62, 62, 62)
-                    color: MyColors.myOnBackground
-                  ),
-                  //color: Colors.grey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      IconButton(
-                        iconSize: 100,
-                        onPressed: (){
-                          // Navigator.push(
-                          //   context, 
-                          //   MaterialPageRoute
-                          //   (
-                          //     builder: (context) => const TeamDisplayChoice(),
-                          //   )
-                          // );
-                        },  
-                        icon: const Icon(Icons.data_array),
-                        color: Colors.black,
-                      ),
-                      const Text(""),
-                    ],
-                  )
-                ),
-                Container(
-                  decoration: ShapeDecoration(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(60.0),
-                    ),
-                    //color: Color.fromARGB(20, 62, 62, 62)
-                    color: MyColors.myOnBackground
-                  ),
-                  //color: Colors.grey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      IconButton(
-                        iconSize: 100,
-                        onPressed: (){
-                          // Navigator.push(
-                          //   context, 
-                          //   MaterialPageRoute
-                          //   (
-                          //     builder: (context) => const TeamDisplayChoice(),
-                          //   )
-                          // );
-                        },  
-                        icon: const Icon(Icons.data_array),
-                        color: Colors.black,
-                      ),
-                      const Text(""),
-                    ],
-                  )
-                ),
-                Container(
-                  decoration: ShapeDecoration(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(60.0),
-                    ),
-                    //color: Color.fromARGB(20, 62, 62, 62)
-                    color: MyColors.myOnBackground
-                  ),
-                  //color: Colors.grey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      IconButton(
-                        iconSize: 100,
-                        onPressed: (){
-                          // Navigator.push(
-                          //   context, 
-                          //   MaterialPageRoute
-                          //   (
-                          //     builder: (context) => const TeamDisplayChoice(),
-                          //   )
-                          // );
-                        },  
-                        icon: const Icon(Icons.data_array),
-                        color: Colors.black,
-                      ),
-                      const Text(""),
-                    ],
-                  )
-                ),
-                Container(
-                  decoration: ShapeDecoration(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(60.0),
-                    ),
-                    //color: Color.fromARGB(20, 62, 62, 62)
-                    color: MyColors.myOnBackground
-                  ),
-                  //color: Colors.grey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      IconButton(
-                        iconSize: 100,
-                        onPressed: (){
-                          // Navigator.push(
-                          //   context, 
-                          //   MaterialPageRoute
-                          //   (
-                          //     builder: (context) => const TeamDisplayChoice(),
-                          //   )
-                          // );
-                        },  
-                        icon: const Icon(Icons.data_array),
-                        color: Colors.black,
-                      ),
-                      const Text(""),
-                    ],
-                  )
-                ),
               ],
 
           ),
         
         ),
       ),
-      floatingActionButton: 
-      IconButton
-      (
-        onPressed: (){
+      floatingActionButton: ElevatedButton(
+        onPressed: ()
+        {
           Navigator.push(
             context, 
             MaterialPageRoute
@@ -419,7 +263,17 @@ class _HomeState extends State<Home> {
             )
           );
         },
-        icon: const Icon(Icons.chat),
+        child: SizedBox(
+          height: height / 10,
+          child: const Column (
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.chat, size: 50,),
+              Text("Interview Practice",)
+            ]
+          ),
+        )
+        
 
       ),
        // This trailing comma makes auto-formatting nicer for build methods.

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'color_scheme.dart';
 import 'sheetshelper.dart';
-import 'home.dart';
+import 'jobmatches.dart';
 
 const List<String> accommodations = <String>["Sense of workplace community",
     "Programs specifically designed for people on the spectrum",
@@ -56,15 +56,16 @@ class _SurveyState extends State<Survey> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
+    //double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Center(
         child: Column(
           children: [
+            const Text("Select Preferences from below!", style: TextStyle(fontSize: 20),),
             Container(
               padding: const EdgeInsets.all(15),
-              child: Text(fullAccommodations),
+              child: Text("Your accommodations: $fullAccommodations"),
             ),
             SizedBox(
               width: width / 1.5,
@@ -93,20 +94,36 @@ class _SurveyState extends State<Survey> {
                 }).toList(),
               ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                _submitSection();
-
-                Navigator.push(
-                  context, 
-                  MaterialPageRoute
-                  (
-                    builder: (context) => Home(loggedInEmail: widget.email,)
-                  )
-                );
-              },
-              child: const Icon(Icons.send),
-            )
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () 
+                  {
+                    _submitSection();
+              
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute
+                      (
+                        builder: (context) => JobMatches(email: widget.email, accommodations: fullAccommodations, firsTime: true,)//Home(loggedInEmail: widget.email,)
+                      )
+                    );
+                  },
+                  child: const Icon(Icons.send),
+                ),
+                const SizedBox(width: 20,),
+                ElevatedButton(
+                  onPressed: () 
+                  {
+                    setState(() {
+                      fullAccommodations = "";
+                    });
+                  },
+                  child: const Icon(Icons.delete),
+                )
+              ]
+            ),
           ],
         )
       ),
