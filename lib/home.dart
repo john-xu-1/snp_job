@@ -415,7 +415,7 @@ class _HomeState extends State<Home> {
             context, 
             MaterialPageRoute
             (
-              builder: (context) => Chat()
+              builder: (context) => const Chat()
             )
           );
         },
