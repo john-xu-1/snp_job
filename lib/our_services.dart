@@ -1,280 +1,104 @@
 import 'package:flutter/material.dart';
-import 'color_scheme.dart';
-import 'signup.dart';
-import 'login.dart';
-import 'chat.dart';
-import 'jobmatches.dart';
 
-class OurServices extends StatefulWidget {
-  const OurServices({super.key, required this.loggedInEmail, required this.accommodations});
+void main() {
+  runApp(MaterialApp(
+    home: OurServices(
+      loggedInEmail: "",
+      accommodations: "",
+    ),
+  ));
+}
 
+class OurServices extends StatelessWidget {
   final String loggedInEmail;
   final String accommodations;
 
-  @override
-  State<OurServices> createState() => _OurServicesState();
-}
+  OurServices({required this.loggedInEmail, required this.accommodations});
 
-bool hoverSignup = false;
-bool hoverLogin = false;
-
-class _OurServicesState extends State<OurServices> {
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
-
     return Scaffold(
+      backgroundColor: Color(0xFFEADDD8),
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 222, 222, 222),
-        leading: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Container(
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    fit: BoxFit.contain,
-                    image: ExactAssetImage("assets/infinitylogo.png"))),
-          ),
-        ),
-        actions: [
-          if (widget.loggedInEmail == "")
-            Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: Row(
-                children: [
-                  Container(
-                    width: 80,
-                    padding: const EdgeInsets.all(5.0),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: MyColors.myOnPrimary),
-                        color: hoverLogin
-                            ? MyColors.myOnBackgroundD
-                            : const Color.fromARGB(0, 255, 255, 255)),
-                    child: TextButton(
-                      onHover: (bool value) {
-                        setState(() {
-                          hoverLogin = value;
-                        });
-                      },
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const LogIn()));
-                      },
-                      child: const Text(
-                        "Log in",
-                        style: TextStyle(color: MyColors.myOnSurface),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    width: 80,
-                    padding: const EdgeInsets.all(5.0),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: MyColors.myOnPrimary),
-                        color: hoverSignup
-                            ? MyColors.myOnBackgroundD
-                            : const Color.fromARGB(0, 255, 255, 255)),
-                    child: TextButton(
-                      onHover: (bool value) {
-                        setState(() {
-                          hoverSignup = value;
-                        });
-                      },
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const SignUp()));
-                      },
-                      child: const Text(
-                        "Sign up",
-                        style: TextStyle(color: MyColors.myOnSurface),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            )
-          else
-            const Padding(
-              padding: EdgeInsets.only(right: 20),
-              child: Icon(Icons.person),
-            )
-        ],
-        elevation: 21,
+        title: Text('Our Services'),
+        backgroundColor: Color(0xFFC1A29E),
       ),
-      body: Center(
-        child: Container(
-          color: const Color.fromARGB(255, 229, 219, 217), // Set the background color here
-          child: ListView(
-            children: <Widget>[
-              Container(
-                height: height / 3,
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: ExactAssetImage("assets/work.png"))),
-                child: Center(
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          "Neu-Link",
-                          style: TextStyle(fontSize: 75),
-                        ),
-                        TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) {
-                                    if (widget.loggedInEmail == "") return SignUp();
-                                    return JobMatches(
-                                      email: widget.loggedInEmail,
-                                      accommodations: widget.accommodations,
-                                      firsTime: false,
-                                    );
-                                  }));
-                            },
-                            child: widget.loggedInEmail == ""
-                                ? Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                            width: 5,
-                                            color: MyColors.myOnPrimary)),
-                                    child: const Padding(
-                                        padding: EdgeInsets.all(7.5),
-                                        child: Text("Start Finding",
-                                            style: TextStyle(fontSize: 20))))
-                                : Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                            width: 5,
-                                            color: MyColors.myOnPrimary)),
-                                    child: const Padding(
-                                        padding: EdgeInsets.all(7.5),
-                                        child: Text("Check My Match",
-                                            style: TextStyle(fontSize: 20)))))
-                      ]),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Text(
+                  'Our Services',
+                  style: TextStyle(
+                    fontSize: 36,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.all(12.0),
-                color: MyColors.myOnBackground,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Our Mission",
-                      style: TextStyle(fontSize: 50),
-                    ),
-                    const SizedBox(height: 10),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      child: const Text(
-                        "At Neu-Link, we offer qualified autistic job seekers help with job seeking by providing accommodation info of companies and a machine learning chatbot that trains users so that they can succeed in their job interviews. We achieve this by following our four principles on the left.",
-                        style: TextStyle(fontSize: 20),
-                        textAlign: TextAlign.left,
-                      ),
-                    ),
-                  ],
-                ),
+              SizedBox(height: 16),
+              serviceSection(
+                '01',
+                'assets/identify.jpg',
+                'We IDENTIFY our user’s list of accommodations by matching what they select on our accommodation form to jobs that align',
+                textLeft: true,
               ),
-              Container(
-                padding: const EdgeInsets.all(12.0),
-                color: MyColors.myOnBackground, // Match background color with "Our Mission" section
+              serviceSection(
+                '02',
+                'assets/train.jpg',
+                'We help TRAIN our users for workplace transition and the job interview process using our AI chatbot to simulate a real life interview',
+                textLeft: false,
+              ),
+              serviceSection(
+                '03',
+                'assets/empower.jpg',
+                'We connect mentors/role models to our autistic users to give advice, resources, and EMPOWER. We believe mentorship is crucial assistance in the job hunting process.',
+                textLeft: true,
+              ),
+              serviceSection(
+                '04',
+                'assets/match.jpg',
+                'We MATCH our autistic users to jobs that have the accommodations they are looking for.',
+                textLeft: false,
+              ),
+              SizedBox(height: 32),
+              Center(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "The Issue",
-                      style: TextStyle(fontSize: 50),
-                    ),
-                    const SizedBox(height: 10),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  children: const [
-                                    Text(
-                                      "87%",
-                                      style: TextStyle(
-                                          fontSize: 50,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.orange),
-                                    ),
-                                    Text(
-                                      "of autistic adults in the US are unemployed or underemployed.",
-                                      style: TextStyle(fontSize: 20),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                child: Column(
-                                  children: const [
-                                    Text(
-                                      "44%",
-                                      style: TextStyle(
-                                          fontSize: 50,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.orange),
-                                    ),
-                                    Text(
-                                      "of autistic individuals reported not being in employment that suited their skills and abilities.",
-                                      style: TextStyle(fontSize: 20),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 10),
-                          const Text(
-                            "AUTISTIC WORKERS WERE 90% MORE PRODUCTIVE THAN NON-AUTISTIC EMPLOYEES. WHEN MATCHED TO PROJECTS THEY WERE PASSIONATE ABOUT, THEIR PRODUCTIVITY SOARED TO 140% ABOVE THAT OF THEIR NON-AUTISTIC COUNTERPARTS. -JP Morgan Chase",
-                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
+                    Text(
+                      'More Resources',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
                       ),
                     ),
+                    SizedBox(height: 8),
+                    Text(
+                      '- Our AI chat bot, TIM',
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      '- Navigating hidden curriculums in the workplace',
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      '- Mentor Hub',
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 16),
+                    Text(
+                      'Contact Us: email@gmail.com',
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 32),
                   ],
                 ),
               ),
@@ -282,25 +106,81 @@ class _OurServicesState extends State<OurServices> {
           ),
         ),
       ),
-      floatingActionButton: ElevatedButton(
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const Chat()));
-          },
-          child: SizedBox(
-            height: height / 10,
-            child: const Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.chat,
-                    size: 50,
-                  ),
-                  Text(
-                    "Interview Practice",
-                  )
-                ]),
-          )),
+    );
+  }
+
+  Widget serviceSection(String number, String imagePath, String description, {bool textLeft = true}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 32.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: textLeft
+            ? [
+                buildTextBox(description),
+                buildImageBox(number, imagePath, leftRounded: true),
+              ]
+            : [
+                buildImageBox(number, imagePath, leftRounded: false),
+                buildTextBox(description),
+              ],
+      ),
+    );
+  }
+
+  Widget buildTextBox(String description) {
+    return Expanded(
+      flex: 1,
+      child: Container(
+        color: Colors.black,
+        padding: EdgeInsets.all(16.0),
+        child: Text(
+          description,
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildImageBox(String number, String imagePath, {bool leftRounded = true}) {
+    return Expanded(
+      flex: 2,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(leftRounded ? 100.0 : 0.0),
+              bottomLeft: Radius.circular(leftRounded ? 100.0 : 0.0),
+              topRight: Radius.circular(leftRounded ? 0.0 : 100.0),
+              bottomRight: Radius.circular(leftRounded ? 0.0 : 100.0),
+            ),
+            child: Container(
+              height: 400,
+              color: Color(0xFF89A38A),
+              padding: EdgeInsets.all(16.0),
+              child: Image.asset(imagePath, fit: BoxFit.cover, errorBuilder: (context, error, stackTrace) {
+                return Image.asset('assets/placeholder.jpg', fit: BoxFit.cover);
+              }),
+            ),
+          ),
+          Positioned(
+            top: -40,
+            left: leftRounded ? null : 0,
+            right: leftRounded ? 0 : null,
+            child: Text(
+              number,
+              style: TextStyle(
+                fontSize: 96,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -22,8 +22,7 @@ class MyColors extends ColorScheme {
 
   static const Color myAmped = Color.fromARGB(255, 98, 97, 97);
   static const Color myMatch = Color.fromARGB(255, 4, 4, 4);
-
-
+  
   // Override the constructor
   const MyColors({
     // Set your custom colors as primary and secondary
