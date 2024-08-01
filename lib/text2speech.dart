@@ -50,11 +50,11 @@ class Text2Speech {
       ttsState = TtsState.playing;
     });
 
-    if (isAndroid) {
-      flutterTts.setInitHandler(() {
-        print("TTS Initialized");
-      });
-    }
+    // if (isAndroid) {
+    //   flutterTts.setInitHandler(() {
+    //     print("TTS Initialized");
+    //   });
+    // }
 
     flutterTts.setCompletionHandler(() {
       print("Complete");

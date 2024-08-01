@@ -50,7 +50,10 @@ class MyColors extends ColorScheme {
 
 
       secondary: secondaryColor,//not used
-      onSecondary: onPrimary,//doesn't show up?? 
+      onSecondary: onPrimary,//not used
+      
+      // background: background,//back round of everything, shoudl be white
+      // onBackground: background,//doesn't show up?? 
 
       surface: surface,//top bar should be white
       onSurface: onSurface,//text on the surface should be black
