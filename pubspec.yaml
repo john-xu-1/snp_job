@@ -48,6 +48,7 @@ dependencies:
   flutter_dotenv: ^5.1.0
   permission_handler_web: ^0.0.2
   speech_to_text: ^6.6.0
+  fl_chart: ^0.68.0
   #text_to_speech: ^0.2.3
   # googleapis_auth: ^1.4.1
   # googleapis: ^11.4.0
@@ -84,7 +85,7 @@ flutter:
     - assets/work.png
     - assets/infinitylogo.png
     - assets/bigLogo.png
-    - .env
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
