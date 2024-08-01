@@ -145,7 +145,13 @@ class _ChatState extends State<Chat> {
   //   }
   // }
   void _speak(String text){
-    js.context.callMethod('speakText', [text]);
+    try{
+      js.context.callMethod('speakText', [text]);
+    }
+    catch (e){
+      print (e);
+    }
+    
 
   }
 

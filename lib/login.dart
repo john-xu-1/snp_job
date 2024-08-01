@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'color_scheme.dart';
 import 'sheetshelper.dart';
@@ -27,7 +25,7 @@ class _LogInState extends State<LogIn> {
   Future<void> _submitSection() async {
     try {
 
-      final sheet = await SheetsHelper.sheetSetup("Sheet1"); 
+      final sheet = await SheetsHelper.sheetSetup("login info"); 
       final user = await sheet!.values.rowByKey(email);
       if (user == null){
         setState(() {

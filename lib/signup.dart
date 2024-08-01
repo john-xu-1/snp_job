@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'job_survey.dart';
 import 'color_scheme.dart';
 import 'sheetshelper.dart';
-import 'survey.dart';
+import 'pref_survey.dart';
 import 'login.dart';
  
 
@@ -21,6 +22,7 @@ class _SignUpState extends State<SignUp> {
   String username= "";
   String email = "";
   String password = "";
+  bool isEmployed = false;
 
   bool incorrect = false;
   bool loading = false;
@@ -28,8 +30,15 @@ class _SignUpState extends State<SignUp> {
   Future<void> _submitSection() async {
     try {
 
-      final sheet = await SheetsHelper.sheetSetup("Sheet1"); 
-      final submission = [username, password]; 
+      final sheet = await SheetsHelper.sheetSetup("login info"); 
+      final submission = [username, password];
+      if (email == ""){
+        setState(() {
+          incorrect = true;
+          loading = false;
+        });
+        return;
+      }
       final user = await sheet!.values.rowByKey(email);
       if (user == null){
         if (email.contains("@") && email.contains(".com")){
@@ -38,7 +47,7 @@ class _SignUpState extends State<SignUp> {
 
            setState(() {
             incorrect = false;
-            
+            loading = false;
            });
 
           if (context.mounted){
@@ -46,7 +55,10 @@ class _SignUpState extends State<SignUp> {
               context, 
               MaterialPageRoute
               (
-                builder: (context) => Survey(email: email,)
+                builder: (context) {
+                  if (isEmployed) return JobSurvey(email: email);
+                  return PrefSurvey(email: email,);
+                } 
               )
             );
           }
@@ -55,6 +67,7 @@ class _SignUpState extends State<SignUp> {
         else{
           setState(() {
             incorrect = true;
+            loading = false;
           });
         }
       }
@@ -80,6 +93,7 @@ class _SignUpState extends State<SignUp> {
         else{
           setState(() {
             incorrect = true;
+            loading = false;
           });
         }
       }
@@ -106,98 +120,142 @@ class _SignUpState extends State<SignUp> {
       (
         body: Center
         (
-          child: Text("Loading... (Takes ~5s)", style: TextStyle(fontSize: 50),)
+          child: Text("Loading... (Takes ~5s)", textScaleFactor: 3,)
         )
       );
     }
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Sign Up for",),
+        title: const Text("Sign Up to Start Searching",),
         elevation: 15,
       ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             incorrect ? const Padding(padding: EdgeInsets.only(top: 20, bottom: 5), child: Text("Password or email incorrect", style: TextStyle(color: MyColors.myOnPrimary),)) : const SizedBox(),
-            SizedBox(
-              height: height / 4.5,
-              //color: Colors.red[300],
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const Text("Username",textScaleFactor: 1.5,),
-                    SizedBox(
-                      width: width /3,
-                      child: TextField(
-                        onChanged: (String value) {
-                          setState(() {
-                            username = value;
-                          });
-                        },
-                        decoration: const InputDecoration(
-                          hintText: "Anything works!"
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Padding(padding: const EdgeInsets.only(left: 15, bottom: 10), child: SizedBox(width: width/3 ,child: const Row(children: [ Text("Username",textScaleFactor: 1.5, textAlign: TextAlign.left,)]))),
+                SizedBox(
+                  width: width /3,
+                  child: TextField(
+                    onChanged: (String value) {
+                      setState(() {
+                        username = value;
+                      });
+                    },
+                    cursorColor: const Color.fromARGB(255, 0, 0, 0),
+                    //style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontSize: 20),
+                    decoration: const InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: MyColors.myOnPrimary,
                         ),
-                        cursorColor: MyColors.myOnSurface,
+                        //borderRadius: BorderRadius.circular(5.5),
                       ),
-                    ),
-                    
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              height: height / 4.5,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const Text("Email",textScaleFactor: 1.5,),
-                    SizedBox(
-                      width: width /3,
-                      child: TextField(
-                        onChanged: (String value) {
-                          setState(() {
-                            email = value;
-                          });
-                        },
-                        decoration: const InputDecoration(
-                          hintText: "Doesn't have to be a real email, we're just testing!"
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color:MyColors.myOnPrimary
                         ),
-                        cursorColor: MyColors.myOnSurface,
                       ),
+                      filled: true,
+                      fillColor: MyColors.myBackground,
+                      hintText: "Anything works!",
+                      //hintStyle: TextStyle(color: MyColors.myOnPrimary, fontSize: 15),
                     ),
-                    
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
-            SizedBox(
-              height: height/4.5,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const Text("Password",textScaleFactor: 1.5,),
-                    SizedBox(
-                      width: width /3,
-                      child: TextField(
-                        //int.parse(value)
-                        onChanged: (String value) {
-                          setState(() {
-                            password = value;
-                          });
-                        },
-                        decoration: const InputDecoration(
-                          hintText: "Any password is fine, doesn't need to be email password"
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Padding(padding: const EdgeInsets.only(left: 15, bottom: 10), child: SizedBox(width: width/3 ,child: const Row(children: [ Text("Email",textScaleFactor: 1.5, textAlign: TextAlign.left,)]))),
+                SizedBox(
+                  width: width /3,
+                  child: TextFormField(
+                    onChanged: (String value) { 
+                      setState(() {
+                        email = value;
+                      });
+                    },
+                    cursorColor: const Color.fromARGB(255, 0, 0, 0),
+                    //style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontSize: 20),
+                    decoration: const InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: MyColors.myOnPrimary,
                         ),
-                        cursorColor: MyColors.myOnSurface,
+                        //borderRadius: BorderRadius.circular(5.5),
                       ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color:MyColors.myOnPrimary
+                        ),
+                      ),
+                      filled: true,
+                      fillColor: MyColors.myBackground,
+                      hintText: "Any email that contains '@' and '.com' is fine, we're just testing!",
+                      //hintStyle: TextStyle(color: MyColors.myOnPrimary, fontSize: 15),
                     ),
-                  ],
+                  )
                 ),
-              ),
+              ],
             ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Padding(padding: const EdgeInsets.only(left: 15, bottom: 10), child: SizedBox(width: width/3 ,child: const Row(children: [ Text("Password",textScaleFactor: 1.5, textAlign: TextAlign.left,)]))),
+                SizedBox(
+                  width: width /3,
+                  child: TextField(
+                    //int.parse(value)
+                    onChanged: (String value) {
+                      setState(() {
+                        password = value;
+                      });
+                    },
+                    cursorColor: const Color.fromARGB(255, 0, 0, 0),
+                    //style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontSize: 20),
+                    decoration: const InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: MyColors.myOnPrimary,
+                        ),
+                        //borderRadius: BorderRadius.circular(5.5),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color:MyColors.myOnPrimary
+                        ),
+                      ),
+                      filled: true,
+                      fillColor: MyColors.myBackground,
+                      hintText: "Any password is fine, doesn't have to be email passwords!",
+                      //hintStyle: TextStyle(color: MyColors.myOnPrimary, fontSize: 15),
+                    )
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children:[
+                const Text("Do you have previous job experiences? ", textScaleFactor: 1.3,),
+                Checkbox(
+                  value: isEmployed,
+                  //color Colors.amber[700],
+                  onChanged: (newValue) {
+                    setState(() {
+                      isEmployed = newValue!;
+                    });
+                  },
+                ),
+              ]
+            ),
+            //const SizedBox (height: 15,),
             ElevatedButton(
               onPressed: () {
                 setState(() {

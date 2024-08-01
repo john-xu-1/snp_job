@@ -3,7 +3,7 @@ import 'color_scheme.dart';
 import 'signup.dart';
 import 'login.dart';
 import 'chat.dart';
-import 'jobmatches.dart';
+import 'job_matches.dart';
 
 
 class Home extends StatefulWidget {
@@ -93,7 +93,7 @@ class _HomeState extends State<Home> {
                         });
                       },
                       onPressed: () { 
-                        print ('right button') ;
+                        //print ('right button') ;
                         Navigator.push(
                           context, 
                           MaterialPageRoute
@@ -153,8 +153,8 @@ class _HomeState extends State<Home> {
                             );
                           }, 
                           child: widget.loggedInEmail == "" ? 
-                          Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), border: Border.all(width: 5, color: MyColors.myOnPrimary), ), child: const Padding(padding: EdgeInsets.all(7.5), child: Text("Start Finding", style: TextStyle(fontSize: 20)))) : 
-                          Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), border: Border.all(width: 5, color: MyColors.myOnPrimary), ), child: const Padding(padding: EdgeInsets.all(7.5), child: Text("Check My Match", style: TextStyle(fontSize: 20))))
+                          Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), border: Border.all(width: 5, color: MyColors.myOnPrimary), ), child: const Padding(padding: EdgeInsets.all(7.5), child: Text("Start Finding Jobs", style: TextStyle(fontSize: 20)))) : 
+                          Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), border: Border.all(width: 5, color: MyColors.myOnPrimary), ), child: const Padding(padding: EdgeInsets.all(7.5), child: Text("Check My Matches", style: TextStyle(fontSize: 20))))
                         )
                       ]
                     ),

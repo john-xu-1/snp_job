@@ -41,7 +41,7 @@ class _JobMatchesState extends State<JobMatches> {
   Future<void> _submitSection() async {
     try {
 
-      final sheet = await SheetsHelper.sheetSetup("Sheet2"); 
+      final sheet = await SheetsHelper.sheetSetup("matching info"); 
       //final user = await sheet!.values.rowByKey(email);
       List<String> splitted = widget.accommodations.split(", ");
       print (splitted);

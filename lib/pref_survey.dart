@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'color_scheme.dart';
 import 'sheetshelper.dart';
-import 'jobmatches.dart';
+import 'job_matches.dart';
 
 const List<String> accommodations = <String>["Sense of workplace community",
     "Programs specifically designed for people on the spectrum",
@@ -22,22 +22,22 @@ const List<String> accommodations = <String>["Sense of workplace community",
     "Healthcare plan",
     "Flexible interview options"];
 
-class Survey extends StatefulWidget {
-  const Survey({Key? key, required this.email}) : super(key: key);
+class PrefSurvey extends StatefulWidget {
+  const PrefSurvey({Key? key, required this.email}) : super(key: key);
 
   final String email;
   @override
-  State<Survey> createState() => _SurveyState();
+  State<PrefSurvey> createState() => _PrefSurveyState();
 }
 
 
 
-class _SurveyState extends State<Survey> {
+class _PrefSurveyState extends State<PrefSurvey> {
 
   Future<void> _submitSection() async {
     try {
 
-      final sheet = await SheetsHelper.sheetSetup("Sheet1"); 
+      final sheet = await SheetsHelper.sheetSetup("login info"); 
       final submission = [fullAccommodations]; 
       await sheet!.values.insertRowByKey (widget.email, submission, fromColumn: 4);
     } catch (e) {
@@ -59,16 +59,19 @@ class _SurveyState extends State<Survey> {
     //double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Let's Start Job Matching"),
+      ),
       body: Center(
         child: Column(
           children: [
-            const Text("Select Preferences from below!", style: TextStyle(fontSize: 20),),
+            const Text("Select the accommodations you need below:", style: TextStyle(fontSize: 20),),
             Container(
               padding: const EdgeInsets.all(15),
-              child: Text("Your accommodations: $fullAccommodations"),
+              child: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), border: Border.all(width: 5, color: MyColors.myOnPrimary), ), child: Padding(padding: const EdgeInsets.all(7.5), child: Text("Your accommodations: $fullAccommodations", style: const TextStyle(fontSize: 20)))),
             ),
             SizedBox(
-              width: width / 1.5,
+              width: width / 3,
               child: DropdownButton(
                 alignment: Alignment.center,
                 value: dropdownValue,
@@ -94,12 +97,11 @@ class _SurveyState extends State<Survey> {
                 }).toList(),
               ),
             ),
-            Row(
+            Row (
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: () 
-                  {
+                  onPressed: () {
                     _submitSection();
               
                     Navigator.push(

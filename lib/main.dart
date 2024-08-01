@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:snp_job/jobmatches.dart';
+//import 'package:snp_job/jobmatches.dart';
 import 'home.dart';
 import 'color_scheme.dart';
-import 'entrance.dart';
+//import 'entrance.dart';
 
 void main() {
   runApp(const MyApp());
