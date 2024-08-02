@@ -1,7 +1,6 @@
 //import 'text2speech.dart';
 //import 'package:googleapis_auth/auth_io.dart';
 //import 'package:http/http.dart' as http;
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:wakelock/wakelock.dart';
 import 'package:dart_openai/dart_openai.dart';

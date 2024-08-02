@@ -2,26 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:snp_job/pref_survey.dart';
 import 'color_scheme.dart';
 import 'sheetshelper.dart';
-import 'job_matches.dart';
 
-const List<String> accommodations = <String>["Sense of workplace community",
-    "Programs specifically designed for people on the spectrum",
-    "Mental health support program",
-    "Remote work available",
-    "Sensory room",
-    "Adjustable lighting",
-    "Adapted hiring process",
-    "Job coaches",
-    "Extra time",
-    "Closed captioning/interpreter",
-    "ADA accessible building",
-    "Flexible scheduling",
-    "Multiple means of communication",
-    "Schedule of objectives for the day - less hidden curriculum",
-    "Egalitarian workplace",
-    "Generous PTO",
-    "Healthcare plan",
-    "Flexible interview options"];
+const List<String> accommodations = <String>[
+  "ADA accessible building",
+  "Adapted hiring process",
+  "Adjustable lighting",
+  "Closed captioning/interpreter",
+  "Egalitarian workplace",
+  "Extra time",
+  "Flexible interview options",
+  "Flexible scheduling",
+  "Generous PTO",
+  "Healthcare plan",
+  "Internships",
+  "Job coaches",
+  "Mental health support program",
+  "Multiple means of communication",
+  "Programs specifically designed for people on the spectrum",
+  "Remote work available",
+  "Schedule of objectives for the day - less hidden curriculum",
+  "Sensory room",
+  "Sense of workplace community"
+];
 
 class JobSurvey extends StatefulWidget {
   const JobSurvey({Key? key, required this.email}) : super(key: key);

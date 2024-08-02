@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'job_survey.dart';
 import 'color_scheme.dart';
 import 'sheetshelper.dart';
@@ -114,7 +113,7 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
+    //double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     if (loading){
       return Scaffold
