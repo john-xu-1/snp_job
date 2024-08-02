@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'home.dart';
 import 'color_scheme.dart';
 //import 'entrance.dart';
+//import 'appx.dart';
 
 void main() {
   runApp(const MyApp());

@@ -43,16 +43,18 @@ class _JobMatchesState extends State<JobMatches> {
 
       final sheet = await SheetsHelper.sheetSetup("matching info"); 
       //final user = await sheet!.values.rowByKey(email);
+      final rows = await sheet!.values.allRows();
       List<String> splitted = widget.accommodations.split(", ");
       print (splitted);
       if (splitted.isNotEmpty){
         for (int i = 0; i < splitted.length - 1; i++){
-          for (int j = 0; j < 8; j++){
-            final user = await sheet!.values.row(j+1);
-            if (user[1].contains(splitted[i]) && !jobMatched.contains(user[0]))
+          for (int j = 0; j < rows.length; j++){
+
+            final user = rows[j];
+            if (user[1].toLowerCase().substring(1,user[1].length-2).contains(splitted[i].toLowerCase()) && !jobMatched.contains(user[0]))
             {
               jobMatched.add(user[0]);
-              jobMatchedAccm.add(user[1]);
+              jobMatchedAccm.add(user[1].toLowerCase().substring(1,user[1].length-4));
             }
           }
         }
@@ -85,42 +87,46 @@ class _JobMatchesState extends State<JobMatches> {
     if (jobMatched.isEmpty && widget.accommodations.isNotEmpty){
       return Scaffold
       (
-        body: Center
-        (
-          child: widget.firsTime ? const Text("Finding Your Match!", style: TextStyle(fontSize: 50),)
-          : const Text("Fetching Your Preferences", style: TextStyle(fontSize: 50),)
+        body: Container(
+          color: MyColors.myBackground,
+          child: Center
+          (
+            child: widget.firsTime ? const Text("Finding Your Match!", style: TextStyle(fontSize: 50),)
+            : const Text("Fetching Your Preferences", style: TextStyle(fontSize: 50),)
+          ),
         )
       );
     }
     return Scaffold(
-      body: Center(
-        child: ListView.separated
-        (
-          padding: const EdgeInsets.all(8),
-          itemCount: jobMatched.length,
-          itemBuilder: (BuildContext context, int index) {
-            return SizedBox(
-              height: height/8,
-              child: Container
-              (                
-                color: MyColors.myOnBackground,
-                child: Row(
-                  children: [
-                    Text(jobMatched[index], style: const TextStyle(fontSize: 20),),
-                    const SizedBox(width: 20,),
-                    Text(jobMatchedAccm[index], style: const TextStyle(fontSize: 20),),
-                  ],
+      body: Container(
+        color: MyColors.myBackground,
+        child: Center(
+          child: ListView.separated
+          (
+            padding: const EdgeInsets.all(8),
+            itemCount: jobMatched.length,
+            itemBuilder: (BuildContext context, int index) {
+              return SizedBox(
+                height: height/8,
+                child: Container
+                (                
+                  color: MyColors.myOnBackground,
+                  child: Row(
+                    children: [
+                      Expanded(child: Text("${jobMatched[index]}:   ${jobMatchedAccm[index]}", style: const TextStyle(fontSize: 20),)),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
-          separatorBuilder: (BuildContext context, int index) => Container(
-            alignment: AlignmentDirectional.center,
-            height: height / 150,
+              );
+            },
+            separatorBuilder: (BuildContext context, int index) => Container(
+              alignment: AlignmentDirectional.center,
+              height: height / 150,
+            ),
+              
           ),
-            
+          
         ),
-        
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

@@ -5,6 +5,7 @@ import 'signup.dart';
 import 'login.dart';
 import 'job_matches.dart';
 import 'chat.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key, required this.loggedInEmail, required this.accommodations});
@@ -20,23 +21,32 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   double _animationProgress = 0.0;
-  double _opacity = 0.0;
+  double _opacityOurMission = 0.0;
+  double _opacityTheIssue = 0.0;
   bool hoverSignup = false;
   bool hoverLogin = false;
   bool hoverChatbot = false;
 
-  void _animateIntro() {
+  void _animateOurMission() {
     Future.delayed(Duration.zero, () {
       setState(() {
+        _opacityOurMission = 1.0;
+      });
+    });
+  }
+
+  void _animateCharts(){
+    Future.delayed(Duration.zero, () {
+      setState(() {
+        _opacityTheIssue = 1.0;
         _animationProgress = 1.0;
-        _opacity = 1.0;
       });
     });
   }
   @override
   void initState() {
     super.initState();
-    _animateIntro();
+    //_animateOurMission();
     
 
     
@@ -47,8 +57,8 @@ class _HomeState extends State<Home> {
     double width = MediaQuery.of(context).size.width;
 
 
-    // print (width);
-    // print (height);
+    print (width);
+    print (height);
 
     
 
@@ -146,9 +156,11 @@ class _HomeState extends State<Home> {
               Container(
                 height: height,
                 decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: ExactAssetImage("assets/work.png"))),
+                  image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: ExactAssetImage("assets/work.png")
+                  )
+                ),
                 child: Center(
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -183,21 +195,21 @@ class _HomeState extends State<Home> {
                                         borderRadius: BorderRadius.circular(10),
                                         border: Border.all(
                                             width: 5,
-                                            color: MyColors.myOnPrimary)),
+                                            color: MyColors.myPrimaryColor)),
                                     child: const Padding(
                                         padding: EdgeInsets.all(7.5),
                                         child: Text("Find the perfect job",
-                                            style: TextStyle(fontSize: 20))))
+                                            style: TextStyle(fontSize: 20, color: MyColors.myPrimaryColor))))
                                 : Container(
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         border: Border.all(
                                             width: 5,
-                                            color: MyColors.myOnPrimary)),
+                                            color: MyColors.myPrimaryColor)),
                                     child: const Padding(
                                         padding: EdgeInsets.all(7.5),
                                         child: Text("Check My Matches",
-                                            style: TextStyle(fontSize: 20)))))
+                                            style: TextStyle(fontSize: 20, color: MyColors.myPrimaryColor)))))
                         ]
                     ),
                 ),
@@ -207,39 +219,42 @@ class _HomeState extends State<Home> {
                 decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage('assets/coffeebg.png'),
-                      fit: BoxFit.contain,
-                      repeat: ImageRepeat.repeat,
+                      fit: BoxFit.cover,
+                      repeat: ImageRepeat.repeatY,
                     ),
                 ),
 
 
                 child: Column(
                   children: [
-                    SizedBox (height: height/10,),
-                    Stack(
-                      alignment: Alignment.topLeft,
-                      //crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
+                    SizedBox (height: height / 23), 
+                    VisibilityDetector(
+                      key: const Key('our mission'),
+                      onVisibilityChanged: (visibilityInfo) {
+                        if (visibilityInfo.visibleFraction > 0.3) {
+                          _animateOurMission();
+                        }
+                      },
+                      child: AnimatedOpacity(
+                        opacity: _opacityOurMission,
+                        curve: Curves.linear,
+                        duration: Duration(milliseconds: 500),
+                        child: Stack( key: Key('our mission'),
                           children: [
-                            SizedBox(height: height/5.5,),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  AnimatedOpacity(
-                                    opacity: _opacity,
-                                    curve: Curves.easeIn,
-                                    duration: Duration(milliseconds: 1500),
-                                    child: Container(
+                            Column(
+                              children: [
+                                SizedBox (height: height / 7),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
                                       width: width/1.3,
                                       height: height / 2.5,
                                       padding: const EdgeInsets.all(20),
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         color: Colors.white, // White box
-                                        borderRadius: BorderRadius.circular(10),
-                                        boxShadow: const [
+                                        borderRadius: BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10)),
+                                        boxShadow: [
                                           BoxShadow(
                                             color: Color.fromARGB(255, 173, 216, 230), // Light blue shadow
                                             offset: Offset(15, 15), // Offset for bottom-right shadow
@@ -291,248 +306,257 @@ class _HomeState extends State<Home> {
                                         ],
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            // const SizedBox(height: 20),
-                            // const Center(
-                            //   child: Text(
-                            //     "connect",
-                            //     style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 143, 163, 128)),
-                            //   ),
-                            // ),
-                          ],
-                        ),
-                        const SizedBox(
-                          width: 480,
-                          height: 141.8,
-                          //color: Colors.black,
-                          child: Stack(
-                            alignment: Alignment.centerLeft,
-                            children: [
-                              Image(
-                                fit: BoxFit.cover,
-                                image: ExactAssetImage("assets/brushmark.png")
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(top:15, left: 15),
-                                child: Text(
-                                  "Our Mission",
-                                  style: TextStyle(fontSize: 50, color: Colors.white),
-                                  //textScaler: TextScaler.linear(width / 1440)
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    
-                    SizedBox(height: height/10,),
-                    
-
-                    Stack(
-                      alignment: Alignment.topRight,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            SizedBox(height: height/5.5,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                AnimatedOpacity(
-                                  opacity: _opacity,
-                                  curve: Curves.easeIn,
-                                  duration: Duration(milliseconds: 2500),
-                                  child: Container(
-                                    width: width/1.3,
-                                    height: height/2.5,
-                                    padding: const EdgeInsets.all(20),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white, // White box
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: const [
-                                        BoxShadow(
-                                          color: Color.fromARGB(255, 173, 216, 230), // Light blue shadow
-                                          offset:  Offset(15, 15), // Offset for bottom-right shadow
-                                          blurRadius: 0,
-                                        ),
-                                      ],
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Expanded( 
-                                          child: Column(
-                                            children: [
-                                              SizedBox(
-                                                width: 150,
-                                                height: 150,
-                                                child: Stack(
-                                                  children: [
-                                                    TweenAnimationBuilder(
-                                                      tween: Tween<double>(begin: 0, end: _animationProgress),
-                                                      duration: const Duration(milliseconds: 4500),
-                                                      curve: Curves.easeIn,
-                                                      builder: (context, double value, child) {
-                                                        // print (value);
-                                                        // print (_animationProgress);
-                                                        return PieChart(
-                                                          PieChartData(
-                                                            sections: showingGraph1Sections(value),
-                                                            startDegreeOffset: 270,
-                                                            borderData: FlBorderData(show: false),
-                                                            sectionsSpace: 0,
-                                                            centerSpaceRadius: 0,
-                                                          ),
-                                                          // swapAnimationDuration: const Duration(milliseconds: 150), // Optional
-                                                          // swapAnimationCurve: Curves.linear,
-                                                        );
-                                                      }
-                                                    ),
-                                                    const Center(
-                                                      child: Text(
-                                                        "87%",
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 24,
-                                                          fontWeight: FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              const SizedBox(height: 10),
-                                              const Expanded(
-                                                child: Text(
-                                                  "of autistic adults in the US are unemployed or underemployed.",
-                                                  style: TextStyle(fontSize: 20),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        const SizedBox(width: 20),
-                                        Expanded(
-                                          child: Column(
-                                            children: [
-                                              SizedBox(
-                                                width: 150,
-                                                height: 150,
-                                                child: Stack(
-                                                  children: [
-                                                    TweenAnimationBuilder(
-                                                      tween: Tween<double>(begin: 0, end: _animationProgress),
-                                                      duration: const Duration(milliseconds: 4500),
-                                                      curve: Curves.easeIn,
-                                                      builder: (context, double value, child) {
-                                                        // print (value);
-                                                        // print (_animationProgress);
-                                                        return PieChart(
-                                                          PieChartData(
-                                                            sections: showingGraph2Sections(value),
-                                                            startDegreeOffset: 270,
-                                                            borderData: FlBorderData(show: false),
-                                                            sectionsSpace: 0,
-                                                            centerSpaceRadius: 0,
-                                                          ),
-                                                          swapAnimationDuration: const Duration(milliseconds: 150), // Optional
-                                                          swapAnimationCurve: Curves.linear,
-                                                        );
-                                                      }
-                                                    ),
-                                                    const Center(
-                                                      child: Text(
-                                                        "44%",
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 24,
-                                                          fontWeight: FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              const SizedBox(height: 10),
-                                              const Expanded(
-                                                child: Text(
-                                                  "of autistic adults in the US have no high school or college diploma.",
-                                                  style: TextStyle(fontSize: 20),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                  ],
                                 ),
                               ],
                             ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            TextButton(
-                              onHover: (bool value) {
-                                setState(() {
-                                  hoverChatbot = value;
-                                });
-                              },
-                              onPressed: (){
-                                //print ("hi");
-                                Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => const Chat())
-                                );
-                              }, 
-                              child: Column(
-                                children: [
-                                  const Text("Click to Practice Interview!", style: TextStyle(color:Colors.black)),
-                                  SizedBox(
-                                    width: 110,
-                                    height: 110,
-                                    child: hoverChatbot 
-                                    ? Image.asset("assets/chatbothi.png", alignment: Alignment.topCenter,)
-                                    : Image.asset("assets/chatbotsit.png", alignment: Alignment.topCenter,)
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(width: width/3,),
-                            const SizedBox(
-                              width: 480,
-                              height: 141.8,
-                              //color: Colors.black,
-                              child: Stack(
-                                alignment: Alignment.centerRight,
-                                children: [
-                                  Image(
-                                    fit: BoxFit.cover,
-                                    image: ExactAssetImage("assets/brushmarkflipped.png")
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(bottom:15, right: 20),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Container(
+                                width: width / 2,
+                                decoration:
+                                  const BoxDecoration(borderRadius: BorderRadius.only(topRight: Radius.circular(30), bottomRight: Radius.circular(30)),
+                                  color: MyColors.myOnBackgroundD,
+                                ),
+                                child: const Center(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(20.0),
                                     child: Text(
-                                      "The Issue",
+                                      "Our Mission",
                                       style: TextStyle(fontSize: 50, color: Colors.white),
                                       //textScaler: TextScaler.linear(width / 1440)
                                     ),
                                   ),
+                                ),
+                              ),
+                            ),
+                          ]
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: height/7,),
+                    VisibilityDetector(
+                      key: const Key('the issue'),
+                      onVisibilityChanged: (visibilityInfo) {
+                        if (visibilityInfo.visibleFraction > 0.3) {
+                          _animateCharts();
+                        }
+                      },
+                      child: AnimatedOpacity( key: const Key('the issue'),
+                        opacity: _opacityTheIssue,
+                        curve: Curves.easeIn,
+                        duration: Duration(milliseconds: 500),
+                        child: Stack(
+                          alignment: Alignment.topRight,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                SizedBox(height: height/7,),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Container(
+                                      width: width/1.3,
+                                      height: height/2.5,
+                                      padding: const EdgeInsets.all(20),
+                                      decoration: const BoxDecoration(
+                                        color: Colors.white, // White box
+                                        borderRadius: BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Color.fromARGB(255, 173, 216, 230), // Light blue shadow
+                                            offset:  Offset(15, 15), // Offset for bottom-right shadow
+                                            blurRadius: 0,
+                                          ),
+                                        ],
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Expanded( 
+                                            child: Column(
+                                              children: [
+                                                SizedBox(
+                                                  width: 150,
+                                                  height: 150,
+                                                  child: Stack(
+                                                    children: [
+                                                      TweenAnimationBuilder(
+                                                        tween: Tween<double>(begin: 0, end: _animationProgress),
+                                                        duration: const Duration(seconds: 2),
+                                                        curve: Curves.easeIn,
+                                                        builder: (context, double value, child) {
+                                                          // print (value);
+                                                          // print (_animationProgress);
+                                                          return PieChart(
+                                                            PieChartData(
+                                                              sections: showingGraph1Sections(value),
+                                                              startDegreeOffset: 270,
+                                                              borderData: FlBorderData(show: false),
+                                                              sectionsSpace: 0,
+                                                              centerSpaceRadius: 0,
+                                                            ),
+                                                            // swapAnimationDuration: const Duration(milliseconds: 150), // Optional
+                                                            // swapAnimationCurve: Curves.linear,
+                                                          );
+                                                        }
+                                                      ),
+                                                      const Center(
+                                                        child: Text(
+                                                          "87%",
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 24,
+                                                            fontWeight: FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 10),
+                                                SizedBox(
+                                                  width: width / 3.5,
+                                                  height: height / 10,
+                                                  child: const FittedBox(
+                                                    child: Text(
+                                                      "of autistic adults in the US are unemployed or underemployed.",
+                                                      style: TextStyle(fontSize: 20),
+                                                      textAlign: TextAlign.center,
+                                                    ),
+                                                  ),
+                                                ),
+                                                
+                                              ],
+                                            ),
+                                          ),
+                                          const SizedBox(width: 20),
+                                          Expanded(
+                                            child: Column(
+                                              children: [
+                                                SizedBox(
+                                                  width: 150,
+                                                  height: 150,
+                                                  child: Stack(
+                                                    children: [
+                                                      TweenAnimationBuilder(
+                                                        tween: Tween<double>(begin: 0, end: _animationProgress),
+                                                        duration: const Duration(seconds: 2),
+                                                        curve: Curves.easeIn,
+                                                        builder: (context, double value, child) {
+                                                          // print (value);
+                                                          // print (_animationProgress);
+                                                          return PieChart(
+                                                            PieChartData(
+                                                              sections: showingGraph2Sections(value),
+                                                              startDegreeOffset: 270,
+                                                              borderData: FlBorderData(show: false),
+                                                              sectionsSpace: 0,
+                                                              centerSpaceRadius: 0,
+                                                            ),
+                                                          );
+                                                        }
+                                                      ),
+                                                      const Center(
+                                                        child: Text(
+                                                          "44%",
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 24,
+                                                            fontWeight: FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 10),
+                                                SizedBox(
+                                                  width: width / 3.5,
+                                                  height: height / 10,
+                                                  child: const FittedBox(
+                                                    child: Text(
+                                                      "of autistic adults in the US have no high school or college diploma.",
+                                                      style: TextStyle(fontSize: 20),
+                                                      textAlign: TextAlign.center,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              width: width/1.3,
+                              height: height / 6,
+                              //color: Colors.black,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextButton(
+                                    onHover: (bool value) {
+                                      setState(() {
+                                        hoverChatbot = value;
+                                      });
+                                    },
+                                    onPressed: (){
+                                      //print ("hi");
+                                      Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) => const Chat())
+                                      );
+                                    }, 
+                                    child: Align(
+                                      alignment: Alignment.bottomLeft,
+                                      child: Column(
+                                        children: [
+                                          const Text("Click to Practice Interview", style: TextStyle(color:Colors.black)),
+                                          SizedBox(
+                                            width: 0.055555555555556 * width,
+                                            height: 0.113314447592068 * height,
+                                            child: hoverChatbot 
+                                            ? Image.asset("assets/chatbothi.png", alignment: Alignment.topCenter,)
+                                            : Image.asset("assets/chatbotsit.png", alignment: Alignment.topCenter,)
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  //SizedBox(width: width/3,),
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Container(
+                                      width: width / 2,
+                                      decoration:
+                                        const BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(30), bottomLeft: Radius.circular(30)),
+                                        color: MyColors.myOnBackgroundD,
+                                      ),
+                                      child: const Center(
+                                        child: Padding(
+                                          padding: EdgeInsets.all(20.0),
+                                          child: Text(
+                                            "The Issue",
+                                            style: TextStyle(fontSize: 50, color: Colors.white),
+                                            //textScaler: TextScaler.linear(width / 1440)
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
                           ],
                         ),
-                      ],
+                      ),
                     ),
-
+                
                     SizedBox(height: height/10,),
                     Container(
                       width: width,
@@ -562,7 +586,7 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                     ),
-
+                
                   ],
                 ),
               ),

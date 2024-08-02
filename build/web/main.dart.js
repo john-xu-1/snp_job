@@ -88507,7 +88507,7 @@ h=A.ok(10)
 g=t.Y
 f=t.i
 n=A.dq(A.b([o,A.ho(A.b([A.atp(A.cC(d,A.ho(A.b([A.ayP(A.dq(A.b([A.bX(A.jV(B.cw,A.b([A.aBs(new A.alo(e),B.c_,B.n4,new A.aD(0,e.d,g),f),B.CN],s),B.Q,B.bb,d),150,150),B.dC,B.Fo],s),B.z,B.a0,B.A)),B.i4,A.ayP(A.dq(A.b([A.bX(A.jV(B.cw,A.b([A.aBs(new A.alp(e),B.c_,B.n4,new A.aD(0,e.d,g),f),B.CO],s),B.Q,B.bb,d),150,150),B.dC,B.Fn],s),B.z,B.a0,B.A))],s),B.z,B.a0,B.A),B.p,d,d,new A.cB(B.k,d,d,h,B.nV,d,B.a8),j,d,B.c2,k),B.c_,i,n)],s),B.z,B.kc,B.A)],s),B.mV,B.a0,B.A)
-return A.qe(c,d,A.dU(A.cC(d,A.azx(A.b([r,A.cC(d,A.dq(A.b([p,m,l,A.jV(B.Al,A.b([n,A.ho(A.b([A.Cf(A.dq(A.b([B.UB,A.bX(e.w?A.azb("assets/chatbothi.png",B.iF):A.azb("assets/chatbotsit.png",B.iF),110,110)],s),B.z,B.a0,B.A),new A.alq(e),new A.alr(a0),d),A.bX(d,d,a/3),B.PK],s),B.e2,B.kc,B.A)],s),B.Q,B.bb,d),A.bX(d,q,d),A.cC(d,B.LY,B.p,B.mx,d,d,d,d,d,a)],s),B.z,B.a0,B.A),B.p,d,d,B.B3,d,d,d,a)],s),d,d,!1),B.p,B.DO,d,d,d,d,d,d),d,d),d)}}
+return A.qe(c,d,A.dU(A.cC(d,A.azx(A.b([r,A.cC(d,A.dq(A.b([p,m,l,A.jV(B.Al,A.b([n,A.ho(A.b([A.Cf(A.dq(A.b([B.UA,A.bX(e.w?A.azb("assets/chatbothi.png",B.iF):A.azb("assets/chatbotsit.png",B.iF),110,110)],s),B.z,B.a0,B.A),new A.alq(e),new A.alr(a0),d),A.bX(d,d,a/3),B.PK],s),B.e2,B.kc,B.A)],s),B.Q,B.bb,d),A.bX(d,q,d),A.cC(d,B.LY,B.p,B.mx,d,d,d,d,d,a)],s),B.z,B.a0,B.A),B.p,d,d,B.B3,d,d,d,a)],s),d,d,!1),B.p,B.DO,d,d,d,d,d,d),d,d),d)}}
 A.alb.prototype={
 $0(){var s=this.a
 s.a8(new A.ala(s))},
@@ -95053,8 +95053,8 @@ B.NH=new A.jR(B.aq,B.a0,B.A,B.z,null,B.bG,null,B.HK,null)
 B.UU=new A.by("Email",null,null,B.bE,null,null,1.5,null,null,null)
 B.Hw=A.b(s([B.UU]),t.p)
 B.NI=new A.jR(B.aq,B.a0,B.A,B.z,null,B.bG,null,B.Hw,null)
-B.UA=new A.by("Username",null,null,B.bE,null,null,1.5,null,null,null)
-B.HL=A.b(s([B.UA]),t.p)
+B.UB=new A.by("Username",null,null,B.bE,null,null,1.5,null,null,null)
+B.HL=A.b(s([B.UB]),t.p)
 B.NJ=new A.jR(B.aq,B.a0,B.A,B.z,null,B.bG,null,B.HL,null)
 B.UH=new A.by("Your Company",null,null,B.bE,null,null,1.5,null,null,null)
 B.HV=A.b(s([B.UH]),t.p)
@@ -95645,7 +95645,7 @@ B.Ut=new A.em(B.U0,B.RD,B.Sq,B.T9,B.Tm,B.R9,B.S4,B.Rd,B.SY,B.Ty,B.Sw,B.Tz,B.TI,B
 B.Uu=new A.by("Practice Job Interview With a Bot",null,B.dF,null,null,null,null,null,null,null)
 B.Uy=new A.by("Email",null,null,null,null,null,1.5,null,null,null)
 B.SE=new A.u(!0,B.l,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.UB=new A.by("Click to Practice Interview!",null,B.SE,null,null,null,null,null,null,null)
+B.UA=new A.by("Click to Practice Interview",null,B.SE,null,null,null,null,null,null,null)
 B.UC=new A.by("Sign Up to Start Searching",null,null,null,null,null,null,null,null,null)
 B.zG=new A.u(!0,B.fo,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.UE=new A.by("Log in",null,B.zG,null,null,null,null,null,null,null)
